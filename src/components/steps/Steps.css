@@ -1,12 +1,8 @@
-/* .center {
-  display: grid;
-  place-items: center;
-} */
 .steps__container {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
 
   /* aspect-ratio: 0.5; */
 }

@@ -1,15 +1,25 @@
 import "./App.css";
-import Intro from "./components/intro/Intro";
-import NameInput from "./components/name_input/NameInput";
-import Steps from "./components/steps/Steps";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Routes,
+} from "react-router-dom";
+import Home from "./components/Home";
+import Questions from "./components/questions/Questions";
+import React, { useState, useEffect } from "react";
 
 function App() {
+  const [userName, setUserName] = useState("");
   return (
-    <div className="App">
-      <Intro></Intro>
-      <Steps></Steps>
-      <NameInput></NameInput>
-    </div>
+    <Router>
+      <Routes>
+        {/* <Home></Home> */}
+        <Route path="/" element={<Home setUserName={setUserName} />} />
+        <Route path="/questions" element={<Questions userName={userName} />} />
+      </Routes>
+    </Router>
   );
 }
 

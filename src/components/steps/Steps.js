@@ -4,7 +4,7 @@ import "./Steps.css";
 function Steps() {
   return (
     <div className="steps__container">
-      <div className="box">
+      <div className="box" style={{ color: "white" }}>
         <ul className="ordered__list">
           <li>Create your own quiz</li>
           <li>Share it with your friends</li>

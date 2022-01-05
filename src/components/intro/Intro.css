@@ -1,14 +1,12 @@
 .intro__content {
   display: grid;
   place-items: center;
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
 }
 
 .intro__image {
   height: 180px;
   width: 350px;
-  /* display: block;
-  margin: auto; */
 }
 
 .center {

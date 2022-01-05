@@ -13,7 +13,7 @@ function Intro() {
         />
       </div>
       <div>
-        <h2 className="intro__heading center">Best Friend Quiz</h2>
+        <h1 className="intro__heading center">Best Friend Quiz</h1>
         <p className="intro__subheading center">
           How well do your friends know you?
         </p>
