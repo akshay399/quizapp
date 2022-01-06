@@ -9,8 +9,12 @@ import {
 import Home from "./components/Home";
 import Questions from "./components/questions/Questions";
 import React, { useState, useEffect } from "react";
+import fire from "./fire";
+import firebase from "firebase";
 
 function App() {
+  var database = firebase.database();
+  const db = fire.database;
   const [userName, setUserName] = useState("");
   return (
     <Router>

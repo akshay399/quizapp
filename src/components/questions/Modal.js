@@ -37,6 +37,7 @@ const Modal = ({ onClose, results, data }) => {
                     Correct answer: {data[i].answer}
                   </p>
                 )}
+                {/* <h2>{newarr}</h2> */}
               </li>
             ))}
           </ul>
@@ -45,6 +46,9 @@ const Modal = ({ onClose, results, data }) => {
       {console.log("answwerrr", newarr)};
     </div>
   );
+  {
+    setAnswer([...newarr, { id: newarr.length }]);
+  }
 };
 // setAnswer(newarr);
 

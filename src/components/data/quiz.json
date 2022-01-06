@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "question": "What is the capital of Croatia ?",
+      "question": "What is ${variable_name} the capital of Croatia ?",
       "choices": ["Split", "Osijek", "Zagreb", "Rijeka"],
       "answer": "Zagreb"
     },

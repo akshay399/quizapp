@@ -10,7 +10,10 @@ function NameInput({ setUserName }) {
 
   const [isNameEmpty, setIsNameEmpty] = useState(false);
   const [name, setName] = useState("");
+
   const onClick = () => {
+    //upload questions to firebase
+
     navigate("/questions");
     setUserName({ name });
   };
