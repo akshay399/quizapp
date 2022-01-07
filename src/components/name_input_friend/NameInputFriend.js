@@ -3,42 +3,31 @@ import "./NameInput.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Start from "../questions/Start";
-import { useNavigate } from "react-router-dom";
+import { useNavigate  , useParams} from "react-router-dom";
 import database  from "../../fire";
 // import cryptoRandomString from "crypto-random-string";
 
-function NameInput({ setUserName , uniqueUrl , quizData ,setLink}) {
-  const navigate = useNavigate();
-  
+function NameInputFriend() {
+
+  const {code} = useParams();
+
 
   const [isNameEmpty, setIsNameEmpty] = useState(false);
   const [name, setName] = useState("");
 
   const onClick = () => {
-    console.log("clicked",uniqueUrl);
-    // let unique_url = (Math.random() + 1).toString(36).substring(3);
-  database.ref(uniqueUrl).set(quizData);
-  var currentUrl = window.location.href;
-  var tempLink = `${currentUrl}quiz/${uniqueUrl}`;
-  setLink(tempLink);
-  console.log("sharable link", tempLink);
-    
+    console.log("clicked",name , code);
+    var obj = {[name]:0}
+    database.ref(`${code}/friends`).update(obj);
 
-    navigate("/questions");
-    setUserName({ name });
-  };
-  const handleChange = (e) => {
-    setName(e.target.value);
-  };
-  useEffect(() => {
-    if (!name) setIsNameEmpty(true);
-  }, []);
+  }
+  
   return (
     <div className="name__input__container">
       <div className="name__input__box">
         <h2 className="heading">What's your name?</h2>
         <form>
-          {/* <TextField id="outlined-basic" label="Outlined" variant="outlined" /> */}
+          
           <TextField
             id="outlined-basic"
             variant="outlined"
@@ -61,11 +50,11 @@ function NameInput({ setUserName , uniqueUrl , quizData ,setLink}) {
           className="submit__button"
           disabled={isNameEmpty}
         >
-          Get Started
+          {`Get Started`}
         </Button>
       </div>
     </div>
   );
 }
 
-export default NameInput;
+export default NameInputFriend;

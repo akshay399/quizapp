@@ -12,6 +12,7 @@ import React, { useState, useEffect } from "react";
 import fire from "./fire";
 import firebase from "firebase";
 import quizData from "./components/data/quiz.json";
+import NameInputFriend from "./components/name_input_friend/NameInputFriend";
 
 function App() {
   var database = firebase.database();
@@ -24,24 +25,30 @@ function App() {
       let unique_url = (Math.random() + 1).toString(36).substring(3);
       setUniqueUrl(unique_url);
       console.log("random", unique_url);
-      database.ref(`${unique_url}`).set(quizData);
+     
     }
   }, []);
-  var currentUrl = window.location.href;
-  var tempLink = `${currentUrl}${uniqueUrl}`;
-  if (link == "") setLink(tempLink);
-  console.log("sharable link", tempLink);
+  
   return (
     <Router>
       <Routes>
         {/* <Home></Home> */}
-        <Route path="/" element={<Home setUserName={setUserName} />} />
+        <Route path="/" element={<Home setUserName={setUserName} uniqueUrl = {uniqueUrl} quizData = {quizData} setLink = {setLink}/>} />
+       
         <Route
           path="/questions"
           element={
-            <Questions userName={userName} uniqueUrl={uniqueUrl} link={link} />
+            <Questions userName={userName} uniqueUrl={uniqueUrl} link={link}  />
           }
         />
+
+<Route
+          path="/quiz/:code"
+          element={
+            <NameInputFriend  />
+          }
+        />
+
       </Routes>
     </Router>
   );
