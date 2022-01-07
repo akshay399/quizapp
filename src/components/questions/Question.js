@@ -2,7 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import database from "../../fire";
+import quizData from "../data/quiz.json";
 
+var choicesArray = [];
+var firebaseIndx = -1;
 const Question = ({
   data,
   onAnswerUpdate,
@@ -11,10 +14,26 @@ const Question = ({
   onSetActiveQuestion,
   onSetStep,
 }) => {
+  // const [firebaseAnswer, setSelectedAnswer] = useState("");
   const [selected, setSelected] = useState("");
   const [error, setError] = useState("");
+  const [isNewOptionAdded, setIsNewOptionAdded] = useState(false);
   const radiosWrapper = useRef();
+  const getIndex = (question) => {
+    console.log("ueff", quizData.data);
+    console.log("ueff", quizData[0]);
+    var index = -1;
 
+    var filteredRes = quizData.data.find(function (item, i) {
+      if (item.question === question) {
+        console.log("eququ");
+        index = i;
+        firebaseIndx = i;
+        return i;
+      }
+    });
+    console.log(index, filteredRes);
+  };
   useEffect(() => {
     const findCheckedInput =
       radiosWrapper.current.querySelector("input:checked");
@@ -31,35 +50,34 @@ const Question = ({
     console.log(data.choices);
     data.choices.splice(choice, 1);
   };
-  var choicesArray = [];
-  const pushNewOption = (newOpt) => {
-    console.log("upload to firebase");
-    var pulledChoices = pullChoices();
-    console.log("functional pulledChoices", pulledChoices);
-    // choicesArray.push(newOpt);
-    // console.log("pulled array: ", choicesArray);
-    // choicesArray.append(newOpt);
-    // database.ref("data/0/choices").set(choicesArray);
+
+  const pushNewOption = (choicesArray, newOpt) => {
+    console.log("upload to firebase", choicesArray);
+    choicesArray.push(newOpt);
+    console.log("new option added array: ", choicesArray);
     console.log("executed");
   };
-  const pullChoices = () => {
-    var choicesRef = database.ref("data/0/choices");
+  const pullChoices = (newOpt) => {
+    var choicesRef = database.ref(`data/${firebaseIndx}/choices`);
     choicesRef.on("value", function (snapshot) {
       snapshot.forEach((childSnapshot) => {
         var childData = childSnapshot.val();
         choicesArray.push(childData);
         console.log("pulled firebase", childData);
       });
+      // pushNewOption(choicesArray, newOpt);
+      // choicesArray = [];
+      choicesArray.push(newOpt);
+      setIsNewOptionAdded(true);
       console.log("pulled array before append: ", choicesArray);
-      return choicesArray;
     });
   };
   const addOption = () => {
-    console.log("add option clciked");
     const newOpt = prompt("Add the new option");
     console.log("neww", newOpt);
     if (newOpt) data.choices.push(newOpt);
-    pushNewOption(newOpt);
+    setIsNewOptionAdded(true);
+    pullChoices(newOpt);
   };
 
   const changeHandler = (e) => {
@@ -85,6 +103,13 @@ const Question = ({
     } else {
       onSetStep(3);
     }
+
+    if (isNewOptionAdded) {
+      database.ref(`data/${firebaseIndx}/choices`).set(choicesArray);
+      choicesArray = [];
+      console.log("next button function executed");
+    }
+    database.ref(`data/${firebaseIndx}/answer`).set(selected);
   };
 
   return (
@@ -92,11 +117,12 @@ const Question = ({
       <div className="card-content">
         <div className="content">
           <h2 className="mb-5">{data.question}</h2>
+          {getIndex(data.question)}
 
           <div className="control" ref={radiosWrapper}>
             {data.choices.map((choice, i) => (
               <>
-                {/* {console.log(i)} */}
+                {/* {console.log("is this the index?", i)} */}
                 <DeleteIcon
                   key={choice}
                   onClick={() => deleteOption(i)}
