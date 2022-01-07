@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { formatTime } from "../utils";
 
-const End = ({ results, data, onReset, onAnswersCheck, time }) => {
+const End = ({ results, data, onReset, onAnswersCheck, time, link }) => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
 
   useEffect(() => {
@@ -28,7 +28,8 @@ const End = ({ results, data, onReset, onAnswersCheck, time }) => {
             <strong>{Math.floor((correctAnswers / data.length) * 100)}%</strong>
           </p>
           <p>
-            <strong>Your time:</strong> {formatTime(time)}
+            {/* <strong>share this with your friend: </strong> {formatTime(time)} */}
+            <strong>share this with your friend: </strong> {link}
           </p>
           <button className="button is-info mr-2" onClick={onAnswersCheck}>
             Check your answers

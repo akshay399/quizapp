@@ -7,10 +7,10 @@ import Question from "./Question";
 import End from "./End";
 import Modal from "./Modal";
 import Start from "./Start";
-
+import database from "../../fire";
 let interval;
 
-function Questions({ userName }) {
+function Questions({ userName, uniqueUrl, link }) {
   const [step, setStep] = useState(1);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -52,10 +52,13 @@ function Questions({ userName }) {
           activeQuestion={activeQuestion}
           onSetActiveQuestion={setActiveQuestion}
           onSetStep={setStep}
+          uniqueUrl={uniqueUrl}
+          userName={userName}
         />
       )}
       {step === 3 && (
         <End
+          link={link}
           results={answers}
           data={quizData.data}
           onReset={resetClickHandler}

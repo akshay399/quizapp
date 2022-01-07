@@ -7,6 +7,8 @@ import quizData from "../data/quiz.json";
 var choicesArray = [];
 var firebaseIndx = -1;
 const Question = ({
+  userName,
+  uniqueUrl,
   data,
   onAnswerUpdate,
   numberOfQuestions,
@@ -18,23 +20,33 @@ const Question = ({
   const [selected, setSelected] = useState("");
   const [error, setError] = useState("");
   const [isNewOptionAdded, setIsNewOptionAdded] = useState(false);
+  const [pulledFirebaseQuestion, setPulledFirebaseQuestion] = useState("");
   const radiosWrapper = useRef();
+
   const getIndex = (question) => {
-    console.log("ueff", quizData.data);
-    console.log("ueff", quizData[0]);
     var index = -1;
 
     var filteredRes = quizData.data.find(function (item, i) {
       if (item.question === question) {
-        console.log("eququ");
         index = i;
         firebaseIndx = i;
         return i;
       }
     });
-    console.log(index, filteredRes);
   };
+
   useEffect(() => {
+    var questionRef = database.ref(uniqueUrl);
+    questionRef.once("value", function (snapshot) {
+      snapshot.forEach(function (element) {
+        var q = element.val()[firebaseIndx].question;
+        console.log("question pull: ", element.val()[firebaseIndx].question);
+        setPulledFirebaseQuestion(q);
+      });
+    });
+    console.log("reff", questionRef);
+
+    setIsNewOptionAdded(false);
     const findCheckedInput =
       radiosWrapper.current.querySelector("input:checked");
     if (findCheckedInput) {
@@ -58,17 +70,14 @@ const Question = ({
     console.log("executed");
   };
   const pullChoices = (newOpt) => {
-    var choicesRef = database.ref(`data/${firebaseIndx}/choices`);
+    var choicesRef = database.ref(`${uniqueUrl}/data/${firebaseIndx}/choices`);
     choicesRef.on("value", function (snapshot) {
       snapshot.forEach((childSnapshot) => {
         var childData = childSnapshot.val();
         choicesArray.push(childData);
         console.log("pulled firebase", childData);
       });
-      // pushNewOption(choicesArray, newOpt);
-      // choicesArray = [];
       choicesArray.push(newOpt);
-      setIsNewOptionAdded(true);
       console.log("pulled array before append: ", choicesArray);
     });
   };
@@ -105,18 +114,25 @@ const Question = ({
     }
 
     if (isNewOptionAdded) {
-      database.ref(`data/${firebaseIndx}/choices`).set(choicesArray);
+      database
+        .ref(`${uniqueUrl}/data/${firebaseIndx}/choices`)
+        .set(choicesArray);
       choicesArray = [];
       console.log("next button function executed");
     }
-    database.ref(`data/${firebaseIndx}/answer`).set(selected);
+    database.ref(`${uniqueUrl}/data/${firebaseIndx}/answer`).set(selected);
   };
+  console.log("usernamemememe", userName.name);
+  var variable_name = `${userName.name}'s`;
+  var firebaseQu = eval("`" + pulledFirebaseQuestion + "`");
+  console.log("evaled", firebaseQu);
 
   return (
     <div className="card">
       <div className="card-content">
         <div className="content">
-          <h2 className="mb-5">{data.question}</h2>
+          {/* <h2 className="mb-5">{data.question}</h2> */}
+          <h2 className="mb-5">{`firebase ${firebaseQu}`}</h2>
           {getIndex(data.question)}
 
           <div className="control" ref={radiosWrapper}>

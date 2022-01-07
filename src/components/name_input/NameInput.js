@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Start from "../questions/Start";
 import { useNavigate } from "react-router-dom";
+// import cryptoRandomString from "crypto-random-string";
 
 function NameInput({ setUserName }) {
   const navigate = useNavigate();
@@ -12,7 +13,8 @@ function NameInput({ setUserName }) {
   const [name, setName] = useState("");
 
   const onClick = () => {
-    //upload questions to firebase
+    console.log("clicked");
+    // let unique_url = (Math.random() + 1).toString(36).substring(3);
 
     navigate("/questions");
     setUserName({ name });
