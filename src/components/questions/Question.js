@@ -15,6 +15,7 @@ const Question = ({
   activeQuestion,
   onSetActiveQuestion,
   onSetStep,
+  passUniqueUrl,
 }) => {
   // const [firebaseAnswer, setSelectedAnswer] = useState("");
   const [selected, setSelected] = useState("");
@@ -117,13 +118,14 @@ const Question = ({
       database
         .ref(`${uniqueUrl}/data/${firebaseIndx}/choices`)
         .set(choicesArray);
+
       choicesArray = [];
       console.log("next button function executed");
     }
     database.ref(`${uniqueUrl}/data/${firebaseIndx}/answer`).set(selected);
   };
   console.log("usernamemememe", userName.name);
-  var variable_name = `${userName.name}'s`;
+  var variable_name = `${userName.name}`;
   var firebaseQu = eval("`" + pulledFirebaseQuestion + "`");
   console.log("evaled", firebaseQu);
 

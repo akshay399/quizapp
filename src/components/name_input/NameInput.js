@@ -4,28 +4,45 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Start from "../questions/Start";
 import { useNavigate } from "react-router-dom";
-import database  from "../../fire";
-// import cryptoRandomString from "crypto-random-string";
+import database from "../../fire";
 
-function NameInput({ setUserName , uniqueUrl , quizData ,setLink}) {
+function NameInput({
+  setUserName,
+  setQuestionName,
+  uniqueUrl,
+  quizData,
+  setLink,
+  passUniqueUrl,
+  setUniqueUrl,
+}) {
   const navigate = useNavigate();
-  
-
+  var varr = "hi fro name child";
   const [isNameEmpty, setIsNameEmpty] = useState(false);
   const [name, setName] = useState("");
-
   const onClick = () => {
-    console.log("clicked",uniqueUrl);
+    var temp = getUniqueUrl();
+
+    console.log("functional temop", temp);
+    passUniqueUrl(temp);
+    console.log("clicked", temp);
     // let unique_url = (Math.random() + 1).toString(36).substring(3);
-  database.ref(uniqueUrl).set(quizData);
-  var currentUrl = window.location.href;
-  var tempLink = `${currentUrl}quiz/${uniqueUrl}`;
-  setLink(tempLink);
-  console.log("sharable link", tempLink);
-    
+    database.ref(temp).set(quizData);
+    var currentUrl = window.location.href;
+    var tempLink = `${currentUrl}quiz/${temp}`;
+    setLink(tempLink);
+    console.log("sharable link", tempLink);
 
     navigate("/questions");
     setUserName({ name });
+    setQuestionName({ name });
+    var obj = { name: name };
+    database.ref(`${temp}/user`).update(obj);
+  };
+  const getUniqueUrl = () => {
+    let unique_ur = (Math.random() + 1).toString(36).substring(3);
+    console.log("random", unique_ur);
+    setUniqueUrl(unique_ur);
+    return unique_ur;
   };
   const handleChange = (e) => {
     setName(e.target.value);

@@ -13,42 +13,72 @@ import fire from "./fire";
 import firebase from "firebase";
 import quizData from "./components/data/quiz.json";
 import NameInputFriend from "./components/name_input_friend/NameInputFriend";
-
+import QuestionsFriend from "./components/questions_friend/QuestionsFriend";
 function App() {
+  const [uniqueUrl, setUniqueUrl] = useState();
   var database = firebase.database();
   const db = fire.database;
   const [link, setLink] = useState("");
   const [userName, setUserName] = useState("");
-  const [uniqueUrl, setUniqueUrl] = useState("");
+  const [dataFirebaseArray, setDataFirebaseArray] = useState([]);
+  const [questionName, setQuestionName] = useState("");
+
   useEffect(() => {
-    if (uniqueUrl === "") {
-      let unique_url = (Math.random() + 1).toString(36).substring(3);
-      setUniqueUrl(unique_url);
-      console.log("random", unique_url);
-     
-    }
+    // setUniqueUrl(uniqueUrl);
   }, []);
-  
+
+  const passUniqueUrl = (temp) => {
+    console.log("in app passUniqueUrl funct: ", temp);
+
+    setUniqueUrl(temp);
+    return temp;
+  };
   return (
     <Router>
       <Routes>
-        {/* <Home></Home> */}
-        <Route path="/" element={<Home setUserName={setUserName} uniqueUrl = {uniqueUrl} quizData = {quizData} setLink = {setLink}/>} />
-       
+        <Route
+          path="/"
+          element={
+            <Home
+              setUniqueUrl={setUniqueUrl}
+              passUniqueUrl={passUniqueUrl}
+              setUserName={setUserName}
+              setQuestionName={setQuestionName}
+              uniqueUrl={uniqueUrl}
+              quizData={quizData}
+              setLink={setLink}
+            />
+          }
+        />
+
         <Route
           path="/questions"
           element={
-            <Questions userName={userName} uniqueUrl={uniqueUrl} link={link}  />
+            <Questions
+              passUniqueUrl={passUniqueUrl}
+              userName={userName}
+              uniqueUrl={uniqueUrl}
+              link={link}
+            />
           }
         />
 
-<Route
+        <Route
           path="/quiz/:code"
           element={
-            <NameInputFriend  />
+            <NameInputFriend setDataFirebaseArray={setDataFirebaseArray} />
           }
         />
-
+        <Route
+          path="/quiz/:code/questions"
+          element={
+            <QuestionsFriend
+              questionName={questionName}
+              dataFirebaseArray={dataFirebaseArray}
+              uniqueUrl={uniqueUrl}
+            />
+          }
+        />
       </Routes>
     </Router>
   );

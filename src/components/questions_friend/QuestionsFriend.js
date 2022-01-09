@@ -3,34 +3,29 @@ import React, { useState, useEffect } from "react";
 import "bulma/css/bulma.min.css";
 
 import quizData from "../data/quiz.json";
-import Question from "./Question";
-import End from "./End";
-import Modal from "./Modal";
-import Start from "./Start";
+import QuestionFriend from "./QuestionFriend";
+import EndFriend from "./EndFriend";
+import ModalFriend from "./ModalFriend";
+// import StartFriend from "./StartFriend";
 import database from "../../fire";
 let interval;
 
-function Questions({
-  userName,
-  uniqueUrl,
-  link,
-  passUniqueUrl,
-  setUploadedOptions,
-}) {
-  const [step, setStep] = useState(1);
+var choicesArray = [];
+var firebaseIndx = -1;
+function QuestionsFriend({ uniqueUrl, dataFirebaseArray, questionName }) {
+  const [step, setStep] = useState(2);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [time, setTime] = useState(0);
 
   useEffect(() => {
-    console.log("did username reach here not friend", userName.name);
+    console.log("did username reach here not friend", questionName.name);
 
     if (step === 3) {
       clearInterval(interval);
     }
   }, [step]);
-
   const quizStartHandler = () => {
     setStep(2);
     interval = setInterval(() => {
@@ -49,43 +44,41 @@ function Questions({
   };
   return (
     <div className="App">
-      {step === 1 && (
-        <Start userName={userName} onQuizStart={quizStartHandler} />
-      )}
+      {/* {step === 1 && (
+        <StartFriend userName={userName} onQuizStart={quizStartHandler} />
+      )} */}
       {step === 2 && (
-        <Question
-          setUploadedOptions={setUploadedOptions}
+        <QuestionFriend
+          uniqueUrl={uniqueUrl}
           data={quizData.data[activeQuestion]}
           onAnswerUpdate={setAnswers}
           numberOfQuestions={quizData.data.length}
           activeQuestion={activeQuestion}
           onSetActiveQuestion={setActiveQuestion}
           onSetStep={setStep}
-          uniqueUrl={uniqueUrl}
-          userName={userName}
-          passUniqueUrl={passUniqueUrl}
+          dataFirebaseArray={dataFirebaseArray}
         />
       )}
       {step === 3 && (
-        <End
-          link={link}
+        <EndFriend
           results={answers}
           data={quizData.data}
           onReset={resetClickHandler}
           onAnswersCheck={() => setShowModal(true)}
           time={time}
+          dataFirebaseArray={dataFirebaseArray}
         />
       )}
 
-      {showModal && (
-        <Modal
+      {/* {showModal && (
+        <ModalFriend
           onClose={() => setShowModal(false)}
           results={answers}
           data={quizData.data}
         />
-      )}
+      )} */}
     </div>
   );
 }
 
-export default Questions;
+export default QuestionsFriend;

@@ -1,49 +1,59 @@
 {
   "data": [
     {
-      "question": "What is ${variable_name} the capital of Croatia ?",
-      "choices": ["Split", "Osijek", "Zagreb", "Rijeka"],
+      "question": "What is ${variable_name}'s favorite movie?",
+      "choices": [
+        "Avengers: Endgame",
+        "It: Chapter Two",
+        "Toy Story 4",
+        "Spider-Man: Far From Home"
+      ],
       "answer": "Zagreb"
     },
     {
-      "question": "What is the capital of Slovenia ?",
-      "choices": ["Celje", "Ljubljana", "Maribor", "Koper"],
+      "question": " How many siblings does ${variable_name} have?",
+      "choices": ["0", "5", "1", "2"],
       "answer": "Ljubljana"
     },
     {
-      "question": "What is the capital of Austria ?",
-      "choices": ["Graz", "Salzburg", "Innsbruck", "Vienna"],
+      "question": "What is ${variable_name}'s favorite sport?",
+      "choices": ["Soccer", "Cricket", "Football", "Basketball"],
       "answer": "Vienna"
     },
     {
-      "question": "What is the capital of Serbia ?",
-      "choices": ["Belgrade", "Novi Sad", "Niš", "Subotica"],
+      "question": "When is ${variable_name}'s birthday?",
+      "choices": ["January 10", "September 23", "October 3", "December 27"],
       "answer": "Belgrade"
     },
     {
-      "question": "What is the capital of Bosnia and Herzegovina ?",
-      "choices": ["Mostar", "Sarajevo", "Banja Luka", "Tuzla"],
+      "question": "What is ${variable_name}'s favourite place for vacation?",
+      "choices": ["Beaches", "Mountains"],
       "answer": "Sarajevo"
     },
     {
-      "question": "What is the capital of Hungary ?",
-      "choices": ["Zalaegerszeg", "Eger", "Szeged", "Budapest"],
+      "question": "If ${variable_name} has one hour to spend 1 million, where you think he/she'd go first to?",
+      "choices": [
+        "A designer store",
+        "A luxury restaurant",
+        "A luxury car dealership",
+        "Budapest"
+      ],
       "answer": "Budapest"
     },
     {
-      "question": "What is the capital of Slovakia ?",
-      "choices": ["Košice", "Nitra", "Bratislava", "Poprad"],
+      "question": "What is ${variable_name}'s favorite series?",
+      "choices": ["Stranger Things", "Friends", "The office", "13 Reasons Why"],
       "answer": "Bratislava"
     },
     {
-      "question": "What is the capital of Romania ?",
-      "choices": ["Bucharest", "Craiova", "Constanta", "Braila"],
+      "question": "If ${variable_name} had to eat the same food for dinner every day, what would he pick?",
+      "choices": ["Burger", "Sushi", "Pizza", "Burrito"],
       "answer": "Bucharest"
     },
     {
-      "question": "What is the capital of Germany ?",
-      "choices": ["Wolfsburg", "Munich", "Berlin", "Frankfurt"],
-      "answer": "Berlin"
+      "question": "What is ${variable_name}'s favorite YouTuber?",
+      "choices": ["David Dobrik", "PewDiePie", "H3H3", "Shane Dawson"],
+      "answer": "Berli"
     }
   ]
 }
