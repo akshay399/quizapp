@@ -22,10 +22,7 @@ function App() {
   const [userName, setUserName] = useState("");
   const [dataFirebaseArray, setDataFirebaseArray] = useState([]);
   const [questionName, setQuestionName] = useState("");
-
-  useEffect(() => {
-    // setUniqueUrl(uniqueUrl);
-  }, []);
+  const [name, setName] = useState("");
 
   const passUniqueUrl = (temp) => {
     console.log("in app passUniqueUrl funct: ", temp);
@@ -66,13 +63,19 @@ function App() {
         <Route
           path="/quiz/:code"
           element={
-            <NameInputFriend setDataFirebaseArray={setDataFirebaseArray} />
+            <NameInputFriend
+              setName={setName}
+              name={name}
+              setDataFirebaseArray={setDataFirebaseArray}
+            />
           }
         />
         <Route
           path="/quiz/:code/questions"
           element={
             <QuestionsFriend
+              name={name}
+              userName={userName}
               questionName={questionName}
               dataFirebaseArray={dataFirebaseArray}
               uniqueUrl={uniqueUrl}

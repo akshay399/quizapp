@@ -41,6 +41,7 @@ function NameInput({
   const getUniqueUrl = () => {
     let unique_ur = (Math.random() + 1).toString(36).substring(3);
     console.log("random", unique_ur);
+    unique_ur = unique_ur.substring(0, 7);
     setUniqueUrl(unique_ur);
     return unique_ur;
   };

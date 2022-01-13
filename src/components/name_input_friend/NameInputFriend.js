@@ -7,22 +7,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import database from "../../fire";
 import QuestionsFriend from "../questions_friend/QuestionsFriend";
 
-function NameInputFriend({ setDataFirebaseArray }) {
+function NameInputFriend({ setDataFirebaseArray, setName, name }) {
   const navigate = useNavigate();
   const { code } = useParams();
 
   const [isNameEmpty, setIsNameEmpty] = useState(false);
-  const [name, setName] = useState("");
   const dataArray = [];
+
   useEffect(() => {
-    // dataArray = [];
     console.log("clicked", name, code);
     var choicesRef = database.ref(`${code}/data/`);
     choicesRef.on("value", function (snapshot) {
       snapshot.forEach((childSnapshot) => {
         var childData = childSnapshot.val();
         dataArray.push(childData);
-        // console.log("pulled firebase", childData);
       });
       console.log("pulled array before append: ", dataArray);
       setDataFirebaseArray(dataArray);

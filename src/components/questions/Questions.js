@@ -23,13 +23,13 @@ function Questions({
   const [showModal, setShowModal] = useState(false);
   const [time, setTime] = useState(0);
 
-  useEffect(() => {
-    console.log("did username reach here not friend", userName.name);
+  // useEffect(() => {
+  //   console.log("did username reach here not friend", userName.name);
 
-    if (step === 3) {
-      clearInterval(interval);
-    }
-  }, [step]);
+  //   if (step === 3) {
+  //     clearInterval(interval);
+  //   }
+  // }, [step]);
 
   const quizStartHandler = () => {
     setStep(2);
@@ -39,7 +39,7 @@ function Questions({
   };
 
   const resetClickHandler = () => {
-    setActiveQuestion(0);
+    // setActiveQuestion(0);
     setAnswers([]);
     setStep(2);
     setTime(0);
@@ -74,6 +74,7 @@ function Questions({
           onReset={resetClickHandler}
           onAnswersCheck={() => setShowModal(true)}
           time={time}
+          uniqueUrl={uniqueUrl}
         />
       )}
 

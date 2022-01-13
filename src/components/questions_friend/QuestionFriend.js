@@ -76,8 +76,9 @@ const QuestionFriend = ({
   };
 
   var str = window.location.href;
+  console.log("hereee", str);
   str = str.split("").reverse().join("");
-  let result = str.substring(10, 19);
+  let result = str.substring(10, 17);
   result = result.split("").reverse().join("");
   console.log(result);
   var finalName = "";
@@ -94,13 +95,12 @@ const QuestionFriend = ({
     <div className="card">
       <div className="card-content">
         <div className="content">
-          {/* <h2 className="mb-5">{data.question}</h2> */}
           <h2 className="mb-5">{firebaseQu}</h2>
           {getIndex(data.question)}
           {console.log("serious working?", srsArray)}
 
           <div className="control" ref={radiosWrapper}>
-            {console.log("data dot choices ", data.choices)}
+            {/* {console.log("data dot choices ", data.choices)} */}
             {console.log(
               "serious working2?",
               dataFirebaseArray[firebaseIndx].choices

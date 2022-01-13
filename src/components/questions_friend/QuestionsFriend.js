@@ -12,7 +12,12 @@ let interval;
 
 var choicesArray = [];
 var firebaseIndx = -1;
-function QuestionsFriend({ uniqueUrl, dataFirebaseArray, questionName }) {
+function QuestionsFriend({
+  uniqueUrl,
+  dataFirebaseArray,
+  questionNamem,
+  name,
+}) {
   const [step, setStep] = useState(2);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -20,7 +25,7 @@ function QuestionsFriend({ uniqueUrl, dataFirebaseArray, questionName }) {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
-    console.log("did username reach here not friend", questionName.name);
+    // console.log("did username reach here not friend", questionName.name);
 
     if (step === 3) {
       clearInterval(interval);
@@ -61,12 +66,14 @@ function QuestionsFriend({ uniqueUrl, dataFirebaseArray, questionName }) {
       )}
       {step === 3 && (
         <EndFriend
+          name={name}
           results={answers}
           data={quizData.data}
           onReset={resetClickHandler}
           onAnswersCheck={() => setShowModal(true)}
           time={time}
           dataFirebaseArray={dataFirebaseArray}
+          uniqueUrl={uniqueUrl}
         />
       )}
 
