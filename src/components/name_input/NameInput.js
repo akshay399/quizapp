@@ -14,12 +14,14 @@ function NameInput({
   setLink,
   passUniqueUrl,
   setUniqueUrl,
+  setStep,
 }) {
   const navigate = useNavigate();
   var varr = "hi fro name child";
   const [isNameEmpty, setIsNameEmpty] = useState(false);
   const [name, setName] = useState("");
   const onClick = () => {
+    setStep(1);
     var temp = getUniqueUrl();
 
     console.log("functional temop", temp);
@@ -30,6 +32,8 @@ function NameInput({
     var currentUrl = window.location.href;
     var tempLink = `${currentUrl}quiz/${temp}`;
     setLink(tempLink);
+
+    localStorage.setItem("link-name-input", tempLink);
     console.log("sharable link", tempLink);
 
     navigate("/questions");
@@ -38,6 +42,7 @@ function NameInput({
     var obj = { name: name };
     database.ref(`${temp}/user`).update(obj);
   };
+
   const getUniqueUrl = () => {
     let unique_ur = (Math.random() + 1).toString(36).substring(3);
     console.log("random", unique_ur);

@@ -16,20 +16,15 @@ function Questions({
   link,
   passUniqueUrl,
   setUploadedOptions,
+  setStep,
+  step,
+  setLink,
 }) {
-  const [step, setStep] = useState(1);
+  // const [step, setStep] = useState();
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [time, setTime] = useState(0);
-
-  // useEffect(() => {
-  //   console.log("did username reach here not friend", userName.name);
-
-  //   if (step === 3) {
-  //     clearInterval(interval);
-  //   }
-  // }, [step]);
 
   const quizStartHandler = () => {
     setStep(2);
@@ -39,7 +34,6 @@ function Questions({
   };
 
   const resetClickHandler = () => {
-    // setActiveQuestion(0);
     setAnswers([]);
     setStep(2);
     setTime(0);
@@ -68,6 +62,8 @@ function Questions({
       )}
       {step === 3 && (
         <End
+          setLink={setLink}
+          setStep={setStep}
           link={link}
           results={answers}
           data={quizData.data}

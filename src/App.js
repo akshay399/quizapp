@@ -23,6 +23,7 @@ function App() {
   const [dataFirebaseArray, setDataFirebaseArray] = useState([]);
   const [questionName, setQuestionName] = useState("");
   const [name, setName] = useState("");
+  const [step, setStep] = useState(3);
 
   const passUniqueUrl = (temp) => {
     console.log("in app passUniqueUrl funct: ", temp);
@@ -37,6 +38,7 @@ function App() {
           path="/"
           element={
             <Home
+              setStep={setStep}
               setUniqueUrl={setUniqueUrl}
               passUniqueUrl={passUniqueUrl}
               setUserName={setUserName}
@@ -52,6 +54,9 @@ function App() {
           path="/questions"
           element={
             <Questions
+              setLink={setLink}
+              setStep={setStep}
+              step={step}
               passUniqueUrl={passUniqueUrl}
               userName={userName}
               uniqueUrl={uniqueUrl}

@@ -4,6 +4,7 @@ import database from "../../fire";
 import { formatTime } from "../utils";
 
 const End = ({
+  setStep,
   results,
   data,
   onReset,
@@ -11,12 +12,23 @@ const End = ({
   time,
   link,
   uniqueUrl,
+  setLink,
 }) => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [score, setScore] = useState([]);
+  const [storageLink, setStorageLink] = useState("");
 
-  console.log("yaaaaaaaaaaaaaaaaaaaaaaaaa", uniqueUrl);
   useEffect(() => {
+    var data = localStorage.getItem("link-name-input");
+    console.log("this is data from local storeage", data);
+    if (data) setLink(data);
+  }, []);
+  // useEffect(() => {
+  //   // setLink(storageLink);
+  //   localStorage.setItem("li", link);
+  // });
+  useEffect(() => {
+    setStorageLink(link);
     let correct = 0;
     results.forEach((result, index) => {
       if (result.a === data[index].answer) {
@@ -43,7 +55,7 @@ const End = ({
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("user-name", JSON.stringify(data));
+    if (correctAnswers) localStorage.setItem("final-score", correctAnswers);
   });
 
   return (
