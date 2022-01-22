@@ -19,13 +19,15 @@ function Questions({
   setStep,
   step,
   setLink,
+  setScore,
+  score,
 }) {
   // const [step, setStep] = useState();
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [time, setTime] = useState(0);
-
+  console.log("in questions", score);
   const quizStartHandler = () => {
     setStep(2);
     interval = setInterval(() => {
@@ -40,6 +42,12 @@ function Questions({
     interval = setInterval(() => {
       setTime((prevTime) => prevTime + 1);
     }, 1000);
+  };
+  const onAnswersCheck = () => {
+    setShowModal(true);
+    setScore(score);
+    console.log("on click of check score", score);
+    // setScore([1, 2, 3, 4]);
   };
   return (
     <div className="App">
@@ -62,13 +70,14 @@ function Questions({
       )}
       {step === 3 && (
         <End
+          setScore={setScore}
           setLink={setLink}
           setStep={setStep}
           link={link}
           results={answers}
           data={quizData.data}
           onReset={resetClickHandler}
-          onAnswersCheck={() => setShowModal(true)}
+          onAnswersCheck={onAnswersCheck}
           time={time}
           uniqueUrl={uniqueUrl}
         />
@@ -76,6 +85,7 @@ function Questions({
 
       {showModal && (
         <Modal
+          score={score}
           onClose={() => setShowModal(false)}
           results={answers}
           data={quizData.data}

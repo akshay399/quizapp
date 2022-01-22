@@ -24,6 +24,7 @@ function App() {
   const [questionName, setQuestionName] = useState("");
   const [name, setName] = useState("");
   const [step, setStep] = useState(3);
+  const [score, setScore] = useState([]);
 
   const passUniqueUrl = (temp) => {
     console.log("in app passUniqueUrl funct: ", temp);
@@ -54,6 +55,8 @@ function App() {
           path="/questions"
           element={
             <Questions
+              setScore={setScore}
+              score={score}
               setLink={setLink}
               setStep={setStep}
               step={step}

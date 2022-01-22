@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import context from "react-bootstrap/esm/AccordionContext";
 import database from "../../fire";
 
 import { formatTime } from "../utils";
@@ -13,51 +14,76 @@ const End = ({
   link,
   uniqueUrl,
   setLink,
+  setScore,
 }) => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [score, setScore] = useState([]);
-  const [storageLink, setStorageLink] = useState("");
-
+  // const [score, setScore] = useState([]);
+  const [updated, setUpdated] = useState(1);
   useEffect(() => {
     var data = localStorage.getItem("link-name-input");
-    console.log("this is data from local storeage", data);
     if (data) setLink(data);
-  }, []);
-  // useEffect(() => {
-  //   // setLink(storageLink);
-  //   localStorage.setItem("li", link);
-  // });
-  useEffect(() => {
-    setStorageLink(link);
     let correct = 0;
     results.forEach((result, index) => {
       if (result.a === data[index].answer) {
         correct++;
       }
     });
-    //pull score
+  }, []);
+
+  var out = [];
+
+  // const pullScoreFromFirebase = () => {
+  //   var str = localStorage.getItem("link-name-input");
+  //   // console.log("hereee", str);
+  //   str = str.split("").reverse().join("");
+  //   let result = str.substring(0, 7);
+  //   result = result.split("").reverse().join("");
+  //   // console.log(result);
+  //   var context = [];
+  //   var ref = database.ref(`${result}/friends`);
+  //   ref.on("value", (snapshot) => {
+  //     snapshot.forEach((childSnapshot) => {
+  //       var friendName = childSnapshot.key;
+  //       var friendScore = childSnapshot.val();
+  //       var score_obj = { [friendName]: friendScore };
+  //       context.push(score_obj);
+  //     });
+  //     out = context;
+  //     // console.log("out ", context);
+  //     // console.log("outtt", out);
+  //   });
+
+  //   return context;
+  // };
+
+  // const getScore = () => {
+  //   var t = pullScoreFromFirebase();
+  //   setUpdated(!updated);
+  //   setScore(t);
+  //   console.log("hm", score);
+  // };
+
+  useEffect(() => {
+    var str = localStorage.getItem("link-name-input");
+    str = str.split("").reverse().join("");
+    let result = str.substring(0, 7);
+    result = result.split("").reverse().join("");
+    console.log("yaaaa", result);
     var context = [];
-    var ref = database.ref(`${uniqueUrl}/friends`);
-    ref.on("value", function (snapshot) {
+    var ref = database.ref(`${result}/friends`);
+    ref.on("value", (snapshot) => {
       snapshot.forEach((childSnapshot) => {
         var friendName = childSnapshot.key;
         var friendScore = childSnapshot.val();
         var score_obj = { [friendName]: friendScore };
-        console.log("pulled firebase", friendName, friendScore);
+        console.log(score_obj);
         context.push(score_obj);
-        // setScore();
       });
-      setScore(context);
-      console.log("out ", score);
+      out = context;
+      setScore(out);
     });
-    //pull score ends
-    setCorrectAnswers(correct);
+    console.log("before setting sco", context);
   }, []);
-
-  useEffect(() => {
-    if (correctAnswers) localStorage.setItem("final-score", correctAnswers);
-  });
-
   return (
     <>
       <div className="card">
@@ -78,15 +104,15 @@ const End = ({
             <button className="button is-info mr-2" onClick={onAnswersCheck}>
               Check your answers
             </button>
-            <button className="button is-success" onClick={onReset}>
-              Try again
-            </button>
+            <button className="button is-success">Try again</button>
           </div>
         </div>
       </div>
       <br></br>
-      <h2 className="score__board">here are the reults</h2>
-      {score.length != 0 && <p>score is present</p>}
+      {/* <h2 className="score__board">{score.nishituu}</h2> */}
+      {/* {console.log("ffffffffffff", out.nishituu)} */}
+      <p>hahaah {out.nishituu}</p>
+      {/* <h3 className="score__board">{correctAnswers}</h3> */}
     </>
   );
 };
