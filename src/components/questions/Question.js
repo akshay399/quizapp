@@ -3,6 +3,40 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import database from "../../fire";
 import quizData from "../data/quiz.json";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  root: {
+    background: "linear-gradient(180deg, #00A8FF 0%, #007CFF 90%)",
+    // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    color: "white",
+    height: 40,
+    padding: "0 30px",
+  },
+  copy__link: {
+    background: "linear-gradient(180deg, #00A8FF 0%, #007CFF 90%)",
+    // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    color: "white",
+    height: 40,
+    padding: "0 30px",
+  },
+  result: {
+    background: "linear-gradient(180deg, #00b712 0%, #5aff15 90%);",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    color: "white",
+    height: 40,
+    // width: 20,
+    padding: "0 30px",
+  },
+});
 
 var choicesArray = [];
 var firebaseIndx = -1;
@@ -17,6 +51,8 @@ const Question = ({
   onSetStep,
   passUniqueUrl,
 }) => {
+  const classes = useStyles();
+
   // const [firebaseAnswer, setSelectedAnswer] = useState("");
   const [selected, setSelected] = useState("");
   const [error, setError] = useState("");
@@ -107,7 +143,6 @@ const Question = ({
       { q: data.question, a: selected },
     ]);
     setSelected("");
-    // setSelected(selected);
     if (activeQuestion < numberOfQuestions - 1) {
       onSetActiveQuestion(activeQuestion + 1);
     } else {
@@ -133,14 +168,12 @@ const Question = ({
     <div className="card">
       <div className="card-content">
         <div className="content">
-          {/* <h2 className="mb-5">{data.question}</h2> */}
-          <h2 className="mb-5">{`firebase ${firebaseQu}`}</h2>
+          <h2 className="mb-5">{`${firebaseQu}`}</h2>
           {getIndex(data.question)}
 
           <div className="control" ref={radiosWrapper}>
             {data.choices.map((choice, i) => (
               <>
-                {/* {console.log("is this the index?", i)} */}
                 <DeleteIcon
                   key={choice}
                   onClick={() => deleteOption(i)}
@@ -165,14 +198,14 @@ const Question = ({
           </div>
           <Button
             onClick={addOption}
-            variant="contained"
             style={{ marginBottom: "5px", marginTop: "15px" }}
           >
             add an option
           </Button>
           {error && <div className="has-text-danger">{error}</div>}
           <button
-            className="button is-link is-medium is-fullwidth mt-4"
+            style={{ width: "75%" }}
+            className={classes.root}
             onClick={nextClickHandler}
           >
             Next

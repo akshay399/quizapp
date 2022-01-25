@@ -2,9 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* font-family: "Open Sans", sans-serif; */
-
-  /* aspect-ratio: 0.5; */
 }
 
 .box {
@@ -14,7 +11,7 @@
   background-image: linear-gradient(180deg, #2f2e46 0%, #1f1e35 100%);
   font-weight: 700;
   font-size: 18px;
-  list-style: none;
+  /* list-style: none; */
   counter-reset: numCounter;
   border-radius: 32 px;
   margin: 0;
@@ -25,4 +22,9 @@
   /* width: 100px; */
 }
 .ordered__list {
+  margin-top: 8px;
+  margin-left: 0px;
+}
+.spacing {
+  margin-top: 20px;
 }

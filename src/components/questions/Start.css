@@ -1,0 +1,7 @@
+.card {
+  -webkit-box-shadow: 0 0 0px #00a8ff;
+  -moz-box-shadow: 0 0 0px #00a8ff;
+  box-shadow: 0 0 10px #1993cf;
+}
+
+/* background: "linear-gradient(180deg, #00A8FF 0%, #007CFF 90%)", */

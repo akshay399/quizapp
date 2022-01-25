@@ -5,7 +5,40 @@ import Button from "@mui/material/Button";
 import Start from "../questions/Start";
 import { useNavigate } from "react-router-dom";
 import database from "../../fire";
-
+import { makeStyles } from "@mui/styles";
+import { shadows } from "@mui/system";
+const useStyles = makeStyles({
+  root: {
+    background: "linear-gradient(180deg, #00A8FF 0%, #007CFF 90%)",
+    // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    color: "white",
+    height: 40,
+    padding: "0 30px",
+  },
+  copy__link: {
+    background: "linear-gradient(180deg, #00A8FF 0%, #007CFF 90%)",
+    // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    color: "white",
+    height: 40,
+    padding: "0 30px",
+  },
+  result: {
+    background: "linear-gradient(180deg, #00b712 0%, #5aff15 90%);",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    color: "white",
+    height: 40,
+    // width: 20,
+    padding: "0 30px",
+  },
+});
 function NameInput({
   setUserName,
   setQuestionName,
@@ -16,8 +49,9 @@ function NameInput({
   setUniqueUrl,
   setStep,
 }) {
+  const classes = useStyles();
+
   const navigate = useNavigate();
-  var varr = "hi fro name child";
   const [isNameEmpty, setIsNameEmpty] = useState(false);
   const [name, setName] = useState("");
   const onClick = () => {
@@ -27,7 +61,6 @@ function NameInput({
     console.log("functional temop", temp);
     passUniqueUrl(temp);
     console.log("clicked", temp);
-    // let unique_url = (Math.random() + 1).toString(36).substring(3);
     database.ref(temp).set(quizData);
     var currentUrl = window.location.href;
     var tempLink = `${currentUrl}quiz/${temp}`;
@@ -57,37 +90,43 @@ function NameInput({
     if (!name) setIsNameEmpty(true);
   }, []);
   return (
-    <div className="name__input__container">
-      <div className="name__input__box">
-        <h2 className="heading">What's your name?</h2>
-        <form>
-          {/* <TextField id="outlined-basic" label="Outlined" variant="outlined" /> */}
-          <TextField
-            id="outlined-basic"
-            variant="outlined"
-            className="input__field"
-            type="text"
-            placeholder="john doe"
-            name="name"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-              setIsNameEmpty(false);
-              if (e.target.value === "") setIsNameEmpty(true);
-              console.log("working?");
-            }}
-          />
-        </form>
-        <Button
-          onClick={onClick}
-          variant="contained"
-          className="submit__button"
-          disabled={isNameEmpty}
-        >
-          Get Started
-        </Button>
+    <>
+      <div className="spacing"></div>
+      <div className="name__input__container">
+        <div className="name__input__box">
+          <h2 className="heading">What's your name?</h2>
+          <form>
+            {/* <TextField id="outlined-basic" label="Outlined" variant="outlined" /> */}
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              className="input__field"
+              type="text"
+              placeholder="john doe"
+              name="name"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                setIsNameEmpty(false);
+                if (e.target.value === "") setIsNameEmpty(true);
+                console.log("working?");
+              }}
+            />
+          </form>
+          <Button
+            onClick={onClick}
+            variant="contained"
+            id="submit__button"
+            className="submit__button"
+            className={classes.copy__link}
+            disabled={isNameEmpty}
+          >
+            Get Started
+          </Button>
+        </div>
       </div>
-    </div>
+      <div className="spacing"></div>
+    </>
   );
 }
 

@@ -1,8 +1,13 @@
+* {
+  /* font-family: "Arimo", sans-serif; */
+  /* font-family: "Rubik Beastly", cursive; */
+  font-family: "Ubuntu", sans-serif;
+}
 body {
   display: flex;
   justify-content: center;
   align-content: center;
-  font-family: "The Nautigal", cursive;
+  font-family: "Arimo", sans-serif;
 }
 
 html,

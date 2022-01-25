@@ -5,7 +5,7 @@ import "bulma/css/bulma.min.css";
 import quizData from "../data/quiz.json";
 import Question from "./Question";
 import End from "./End";
-import Modal from "./Modal";
+import Modall from "./Modall";
 import Start from "./Start";
 import database from "../../fire";
 let interval;
@@ -84,7 +84,8 @@ function Questions({
       )}
 
       {showModal && (
-        <Modal
+        <Modall
+          showModal={showModal}
           score={score}
           onClose={() => setShowModal(false)}
           results={answers}

@@ -78,9 +78,10 @@ const QuestionFriend = ({
   var str = window.location.href;
   console.log("hereee", str);
   str = str.split("").reverse().join("");
+  console.log("reversed?", str);
   let result = str.substring(10, 17);
   result = result.split("").reverse().join("");
-  console.log(result);
+  console.log("hmmm", result);
   var finalName = "";
   var nameFirebase = firebase.ref(`${result}/user`);
   nameFirebase.on("value", (snapshot) => {
